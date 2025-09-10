@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.slot-container {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slot-reels {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.reel {
+    font-size: 3rem;
+    margin: 0 10px;
+    padding: 10px;
+    width: 80px;
+    height: 100px;
+    background-color: #eee;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+#spinButton {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#spinButton:hover {
+    background-color: #0056b3;
+}
+
+.bet-container {
+    margin-top: 10px;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.balance {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.admin-controls {
+    margin-top: 30px;
+    border-top: 2px solid #eee;
+    padding-top: 10px;
+}
+
+.admin-controls label,
+.admin-controls button {
+    margin-right: 10px;
+}
