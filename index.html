@@ -3,51 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slot Game</title>
+    <title>5 Lions Megaways Slot Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="slot-container">
-        <h1>Slot Game</h1>
-
-        <!-- Player's Balance -->
-        <div class="balance">
-            <h3>Player's Balance: <span id="playerBalance">100</span> Coins</h3>
+    <div class="game-container">
+        <h1>5 Lions Megaways</h1>
+        
+        <!-- User Info -->
+        <div class="user-info">
+            <span id="user-balance">Balance: $100</span>
+            <button id="logout">Logout</button>
         </div>
 
-        <!-- Slot Reels -->
-        <div class="slot-reels">
-            <div class="reel" id="reel1">
-                <span class="symbol">🍒</span>
+        <!-- Slot Machine -->
+        <div class="slot-machine">
+            <div id="reels">
+                <!-- Reels will be dynamically filled with symbols -->
             </div>
-            <div class="reel" id="reel2">
-                <span class="symbol">🍇</span>
-            </div>
-            <div class="reel" id="reel3">
-                <span class="symbol">🍉</span>
-            </div>
+            <button id="spin">Spin</button>
         </div>
 
-        <!-- Controls -->
-        <div class="controls">
-            <button id="spinButton">Spin</button>
-            <div class="bet-container">
-                <label for="bet">Bet: </label>
-                <input type="number" id="bet" value="1" min="1">
-            </div>
-            <div id="result">Place a bet and press Spin!</div>
-        </div>
-
-        <!-- Admin Controls -->
-        <div class="admin-controls">
-            <h3>Admin Controls</h3>
-            <label for="adminAmount">Amount to Add/Subtract: </label>
-            <input type="number" id="adminAmount" value="10">
-            <button id="addCurrency">Add Currency</button>
-            <button id="subtractCurrency">Subtract Currency</button>
-        </div>
+        <!-- Result Display -->
+        <div id="result"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="game.js"></script>
 </body>
 </html>
