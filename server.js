@@ -44,3 +44,20 @@ app.post('/spin', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+
+// Admin endpoint to view all users and their balances
+app.get('/admin/users', (req, res) => {
+    res.json(users);
+});
+
+// Admin endpoint to reset a user's balance
+app.post('/admin/reset-balance', (req, res) => {
+    const { username } = req.body;
+    if (users[username]) {
+        users[username].balance = 100; // Reset balance to $100
+        res.json({ message: `Balance for ${username} has been reset.`, balance: users[username].balance });
+    } else {
+        res.status(404).json({ message: 'User not found' });
+    }
+});
