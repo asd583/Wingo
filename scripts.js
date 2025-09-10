@@ -1,88 +1,82 @@
-let currentMoney = 10000;  // Starting balance
-let betType = "small";   // Default to small bet
-let guessNumber = -1;    // Default guess is invalid
-let betAmount = 10,100,1000,10000;       // Bet amount
+let playerBalance = 100; // Initial balance for the player
+let betAmount = 1; // Default bet value
 
-// This function simulates spinning the slot machine
-function spinSlot() {
-    // Generate a random number between 0 and 9
-    const randomNumber = Math.floor(Math.random() * 10);  // 0 to 9
+// Event listener for the spin button
+document.getElementById('spinButton').addEventListener('click', spin);
 
-    // Update the slot machine display
-    document.getElementById('slot').textContent = randomNumber;
+// Event listeners for admin controls
+document.getElementById('addCurrency').addEventListener('click', addCurrency);
+document.getElementById('subtractCurrency').addEventListener('click', subtractCurrency);
 
-    // Check if the player's bet is correct
-    let winAmount = 10=10,100=100,1000=1000;
+// Symbol list for the slot machine
+const symbols = ["🍒", "🍇", "🍉", "🍊", "🍓", "🍋"];
 
-    // Check if the player's bet matches the "Big" or "Small" prediction
-    let isBig = randomNumber >= 5;  // Big number: 5-9
-    let isSmall = randomNumber <= 4; // Small number: 0-4
+// Admin function to add currency
+function addCurrency() {
+    const adminAmount = parseInt(document.getElementById('adminAmount').value);
+    playerBalance += adminAmount;  // Add to player's balance
+    updateBalance();  // Update balance display
+}
 
-    if ((betType === "big" && isBig) || (betType === "small" && isSmall)) {
-        // Bet on the right "Big" or "Small"
-        if (randomNumber === guessNumber) {
-            // The player guessed the number right
-            winAmount = betAmount * 5; // High reward for correct guess
-            currentMoney += winAmount;
-            document.getElementById('statusMessage').textContent = `You win! You guessed the number ${randomNumber} correctly and earned $${winAmount}.`;
-        } else {
-            // The player guessed Big/Small correctly, but number was wrong
-            winAmount = betAmount * 1.5; // Small reward for Big/Small guess
-            currentMoney += winAmount;
-            document.getElementById('statusMessage').textContent = `You guessed the right range (Big/Small)! You earned $${winAmount}.`;
-        }
+// Admin function to subtract currency
+function subtractCurrency() {
+    const adminAmount = parseInt(document.getElementById('adminAmount').value);
+    if (playerBalance - adminAmount >= 0) {
+        playerBalance -= adminAmount;  // Subtract from player's balance
+        updateBalance();  // Update balance display
     } else {
-        document.getElementById('statusMessage').textContent = 'Sorry, try again!';
+        alert("Not enough balance to subtract!");
+    }
+}
+
+// Function to spin the slot machine
+function spin() {
+    // Get the bet value from input field
+    betAmount = parseInt(document.getElementById('bet').value);
+
+    // Check if the player has enough balance to place the bet
+    if (betAmount > playerBalance) {
+        document.getElementById('result').textContent = "Not enough balance! Please lower your bet.";
+        return;
     }
 
-    // Update the balance display
+    // Deduct the bet amount from the player's balance
+    playerBalance -= betAmount;
     updateBalance();
+
+    // Randomly pick symbols for each reel
+    const reel1 = randomSymbol();
+    const reel2 = randomSymbol();
+    const reel3 = randomSymbol();
+
+    // Display the symbols in the reels
+    document.getElementById('reel1').querySelector('.symbol').textContent = reel1;
+    document.getElementById('reel2').querySelector('.symbol').textContent = reel2;
+    document.getElementById('reel3').querySelector('.symbol').textContent = reel3;
+
+    // Check for win
+    const result = checkWin(reel1, reel2, reel3);
+    if (result) {
+        // Add winnings to player's balance if they win
+        playerBalance += betAmount * 2;  // Example: winning doubles the bet
+        updateBalance();
+        document.getElementById('result').textContent = `You win! You got ${reel1}${reel2}${reel3}. Your new balance is ${playerBalance} coins.`;
+    } else {
+        document.getElementById('result').textContent = `You lose! Try again. Your balance is ${playerBalance} coins.`;
+    }
+}
+
+// Function to randomly pick a symbol
+function randomSymbol() {
+    return symbols[Math.floor(Math.random() * symbols.length)];
+}
+
+// Function to check if the player has won
+function checkWin(symbol1, symbol2, symbol3) {
+    return symbol1 === symbol2 && symbol2 === symbol3;  // Win if all symbols are the same
 }
 
 // Update the balance display
 function updateBalance() {
-    document.getElementById('balance').textContent = currentMoney;
-}
-
-// Set bet type to small
-function setSmallBet() {
-    betType = "small";
-    alert("You have selected Small Bet! (0-4)");
-}
-
-// Set bet type to big
-function setBigBet() {
-    betType = "big";
-    alert("You have selected Big Bet! (5-9)");
-}
-
-// Get the bet amount from the input
-function getBetAmount() {
-    const betAmountInput = document.getElementById('betAmount');
-    const betAmount = parseInt(betAmountInput.value);
-    return isNaN(betAmount) || betAmount <= 0 || betAmount > currentMoney ? 0 : betAmount;
-}
-
-// Start the slot machine game with the user's bet
-function startSlot() {
-    // Get the player's bet and guess
-    betAmount = parseInt(document.getElementById('betAmount').value);
-    guessNumber = parseInt(document.getElementById('guessNumber').value);
-
-    if (isNaN(guessNumber) || guessNumber < 0 || guessNumber > 9) {
-        alert("Please enter a valid guess between 0 and 9.");
-        return;
-    }
-
-    if (betAmount <= 0 || betAmount > currentMoney) {
-        alert("Please enter a valid bet amount.");
-        return;
-    }
-
-    // Subtract the bet amount from the balance
-    currentMoney -= betAmount;
-    updateBalance();
-
-    // Spin the slots and check if the player won
-    spinSlot();
+    document.getElementById('playerBalance').textContent = playerBalance;
 }
