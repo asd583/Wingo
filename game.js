@@ -1,4 +1,4 @@
-let balance = 100;
+I'mlet balance = 100;
 let symbols = ['🍀', '💎', '🦁', '🍉', '💰']; // Slot symbols
 
 // Elements
@@ -70,3 +70,55 @@ async function login(username) {
 async function spin() {
     const response = await fetch(`${apiUrl}/spin`, {
         method: 'POST
+
+const apiUrl = 'http://localhost:3000';https://opencollective.com/express  // Backend API URL
+
+// Elements
+const loginButton = document.getElementById('login'); // Login button (you can add a login input form for username)
+const logoutButton = document.getElementById('logout');
+const usernameInput = document.getElementById('username-input'); // Input field for username
+
+// Login function
+async function login(username) {
+    const response = await fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+    });
+
+    const data = await response.json();
+
+    if (data.message === 'Login successful') {
+        balance = data.balance;
+        balanceDisplay.textContent = `Balance: $${balance}`;
+        usernameInput.disabled = true;  // Disable the username input field after successful login
+        loginButton.disabled = true;  // Disable the login button
+        logoutButton.disabled = false; // Enable the logout button
+    } else {
+        alert('Login failed');
+    }
+}
+
+// Logout function
+function logout() {
+    usernameInput.disabled = false;
+    loginButton.disabled = false;
+    logoutButton.disabled = true;
+    balance = 100; // Reset balance for demo purposes
+    balanceDisplay.textContent = `Balance: $${balance}`;
+}
+
+// Listen for login button click
+loginButton.addEventListener('click', () => {
+    const username = usernameInput.value.trim();
+    if (username) {
+        login(username);
+    } else {
+        alert('Please enter a username.');
+    }
+});
+
+// Listen for logout button click
+logoutButton.addEventListener('click', logout);
