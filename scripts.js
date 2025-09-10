@@ -1,7 +1,7 @@
-let currentMoney = 100;  // Starting balance
+let currentMoney = 10000;  // Starting balance
 let betType = "small";   // Default to small bet
 let guessNumber = -1;    // Default guess is invalid
-let betAmount = 0;       // Bet amount
+let betAmount = 10,100,1000,10000;       // Bet amount
 
 // This function simulates spinning the slot machine
 function spinSlot() {
@@ -12,7 +12,7 @@ function spinSlot() {
     document.getElementById('slot').textContent = randomNumber;
 
     // Check if the player's bet is correct
-    let winAmount = 0;
+    let winAmount = 10=10,100=100,1000=1000;
 
     // Check if the player's bet matches the "Big" or "Small" prediction
     let isBig = randomNumber >= 5;  // Big number: 5-9
