@@ -45,3 +45,28 @@ function spinReels() {
 
 // Add event listener for the spin button
 spinButton.addEventListener('click', spinReels);
+
+const apiUrl = 'http://localhost:3000';  // Backend API URL
+
+// Login API call
+async function login(username) {
+    const response = await fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+    });
+    const data = await response.json();
+    if (data.message === 'Login successful') {
+        balance = data.balance;
+        balanceDisplay.textContent = `Balance: $${balance}`;
+    } else {
+        alert('Login failed');
+    }
+}
+
+// Spin API call
+async function spin() {
+    const response = await fetch(`${apiUrl}/spin`, {
+        method: 'POST
