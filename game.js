@@ -46,7 +46,7 @@ function spinReels() {
 // Add event listener for the spin button
 spinButton.addEventListener('click', spinReels);
 
-const apiUrl = 'http://localhost:3000';  // Backend API URL
+const apiUrl = 'http://localhost:3000'; https://opencollective.com/express // Backend API URL
 
 // Login API call
 async function login(username) {
